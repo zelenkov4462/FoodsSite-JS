@@ -223,4 +223,68 @@ document.addEventListener("DOMContentLoaded", () => {
     ".menu .container",
     "menu__item"
   ).render();
+
+  // Forms - работа с сервером, отправка форм
+
+  const forms = document.querySelectorAll("form");
+
+  const message = {
+    loading: "Загрузка",
+    success: "Спасибо! Мы скоро с вами свяжемся",
+    failure: "Что-то пошло не так...",
+  };
+
+  forms.forEach((item) => {
+    postData(item);
+  });
+
+  function postData(form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const statusMessage = document.createElement("div");
+      statusMessage.classList.add("status");
+      statusMessage.textContent = message.loading;
+      form.append(statusMessage);
+
+      const request = new XMLHttpRequest();
+      request.open("POST", "server.php");
+
+      // Если мы получаем данные с сервера в формате FormData:
+
+      // Когда мы используем XML и FormData - загаловок не прописываем - ошибка
+      // request.setRequestHeader('Content-type', 'multipart/form-data');
+
+      // const formData = new FormData(form);
+
+      // request.send(formData);
+
+      // Если мы работаем с JSON
+
+      request.setRequestHeader("Content-type", "application/json");
+      const formData = new FormData(form);
+
+      const object = {};
+      formData.forEach(function (value, key) {
+        object[key] = value;
+      });
+
+      const json = JSON.stringify(object);
+
+      request.send(json);
+
+      request.addEventListener("load", () => {
+        if (request.status === 200) {
+          console.log(request.response);
+          statusMessage.textContent = message.success;
+          form.reset(); // очищает форму
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 2000);
+        } else {
+          statusMessage.textContent = message.failure;
+        }
+      });
+    });
+  }
 });
