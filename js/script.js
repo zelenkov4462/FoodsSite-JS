@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const forms = document.querySelectorAll("form");
 
   const message = {
-    loading: "Загрузка",
+    loading: "../img/form/054 spinner.svg",
     success: "Спасибо! Мы скоро с вами свяжемся",
     failure: "Что-то пошло не так...",
   };
@@ -239,10 +239,14 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const statusMessage = document.createElement("div");
-      statusMessage.classList.add("status");
-      statusMessage.textContent = message.loading;
-      form.append(statusMessage);
+      const statusMessage = document.createElement("img");
+      statusMessage.src = message.loading;
+      statusMessage.style.cssText = `
+        display: block;
+        margin: 0 auto;
+      `;
+      // form.append(statusMessage);
+      form.insertAdjacentElement("afterend", statusMessage);
 
       const request = new XMLHttpRequest();
       request.open("POST", "server.php");
@@ -294,8 +298,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const thanksModal = document.createElement("div");
     thanksModal.classList.add("modal__dialog");
     thanksModal.innerHTML = `
-      <div class="madal__content">
-        <div class="modal__close" data-close></div>
+      <div class="modal__content">
+        <div class="modal__close" data-close>×</div>
         <div class="modal__title">${message}</div>
       </div>
   `;
