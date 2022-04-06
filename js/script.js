@@ -248,9 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // form.append(statusMessage);
       form.insertAdjacentElement("afterend", statusMessage);
 
-      const request = new XMLHttpRequest();
-      request.open("POST", "server.php");
-
       // Если мы получаем данные с сервера в формате FormData:
 
       // Когда мы используем XML и FormData - загаловок не прописываем - ошибка
@@ -262,28 +259,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Если мы работаем с JSON
 
-      request.setRequestHeader("Content-type", "application/json");
       const formData = new FormData(form);
 
-      const object = {};
-      formData.forEach(function (value, key) {
-        object[key] = value;
-      });
+      // const object = {};
+      // formData.forEach(function (value, key) {
+      //   object[key] = value;
+      // });
 
-      const json = JSON.stringify(object);
+      // const json = JSON.stringify(object);
 
-      request.send(json);
-
-      request.addEventListener("load", () => {
-        if (request.status === 200) {
-          console.log(request.response);
+      fetch("server.php", {
+        method: "POST",
+        // headers: {
+        //   'Content-type': "application/json"
+        // },
+        body: formData,
+      })
+        .then((data) => data.text())
+        .then((data) => {
+          console.log(data);
           showThanksModal(message.success);
-          form.reset(); // очищает форму
+
           statusMessage.remove();
-        } else {
+        })
+        .catch(() => {
           showThanksModal(message.failure);
-        }
-      });
+        })
+        .finally(() => {
+          form.reset(); // очищает форму
+        });
     });
   }
 
@@ -312,4 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal();
     }, 4000);
   }
+
+  // promise
 });
