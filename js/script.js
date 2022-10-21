@@ -38,5 +38,5 @@ window.addEventListener("DOMContentLoaded", () => {
     wrapper: ".offer__slider-wrapper",
     field: ".offer__slider-inner",
   });
-  timer(".timer", "2022-06-11");
+  timer(".timer", "2024-06-11");
 });
