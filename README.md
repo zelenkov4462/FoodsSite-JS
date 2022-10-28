@@ -13,4 +13,3 @@ Html, css, js.
 ![2022-10-17_20-37-17](https://user-images.githubusercontent.com/101303690/196193671-3d1c2600-3c6a-4837-9e7a-0a585da8a457.png)
 ![2022-10-17_20-37-53](https://user-images.githubusercontent.com/101303690/196193697-bfd7d598-e8d6-4a0d-b086-9012a40bd3d6.png)
 ![2022-10-17_20-38-07](https://user-images.githubusercontent.com/101303690/196193717-47d22b8e-0c75-47bb-8184-bda80872242b.png)
-![2022-10-17_20-38-36](https://user-images.githubusercontent.com/101303690/196193728-7baecf55-a72f-42a7-a939-a234e2c0641d.png)
